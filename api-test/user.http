@@ -17,4 +17,4 @@ GET http://localhost:8083/user/sso/getSsoAuthUrl?clientLoginUrl=http://localhost
 POST http://localhost:8083/user/sso/doLoginByTicket
 Content-Type: application/x-www-form-urlencoded
 
-ticket=5RE3wRDJh7bZEmzxKhdcqFmgn1vitiQMO8K3M7MJpKwyI0R8bFApkyRDkY3XJKoG
+ticket=VjNnnemWu6sunbPPwB7we0eZRAauJgZij1xNYx4f3NsKKlmkpc5NLBjRpRwK8ay7
