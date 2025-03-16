@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.util.concurrent.TimeUnit;
 
 @Data
@@ -21,6 +20,6 @@ public class GetCheckCodeDto {
     private TimeUnit timeUnit;
     //重试次数
     @NotNull(message = "RetryCount 不能为空")
-    @PositiveOrZero(message = "RetryCount 必须是非负数")
+    @Positive(message = "RetryCount 必须是正数")
     private Integer retryCount;
 }

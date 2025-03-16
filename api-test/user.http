@@ -1,13 +1,11 @@
 ###注册
-POST http://localhost:8080/user/register
+POST http://localhost:8083/user/register
 Content-Type: application/json
 
 {
   "username":"心动",
   "password":"123",
   "email": "",
-  "phone":"13283783814",
-  "code":"503854"
+  "phone":"19283783814",
+  "code":"430936"
 }
-### 获取验证码
-GET http://localhost:8080/user/code?phone=13283783814&prefix=login:code:

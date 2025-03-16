@@ -1,0 +1,12 @@
+### 单点登录授权地址
+POST {{auth_host}}/sso/auth
+Content-Type: application/json
+
+{
+  "redirect": "http://localhost:8081/checkCode/check"
+}
+
+### 登录接口
+GET {{auth_host}}/sso/doLogin?name=心动&pwd=123&phone=19283783814&code=885658
+
+

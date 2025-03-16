@@ -1,19 +1,16 @@
 package com.learn.checkCode.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
-
 import com.learn.api.domain.dto.checkCode.GetCheckCodeDto;
 import com.learn.checkCode.service.CheckCodeService;
 import com.learn.common.exception.InvalidCheckCodeException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -57,6 +54,7 @@ public class CheckServiceImpl implements CheckCodeService {
         if(!code.equals(correctCode)){
             throw new InvalidCheckCodeException("无效验证码");
         }
+        log.info("校验成功:{}",key);
         //删除验证码
         redisTemplate.delete(key);
         return true;

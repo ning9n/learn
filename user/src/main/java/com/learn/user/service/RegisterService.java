@@ -9,4 +9,8 @@ public interface RegisterService {
      * @return id
      */
     Long register(UserRegisterDto dto);
+
+    Boolean checkPhone(String phone);
+
+    Boolean checkUsername(String username);
 }
