@@ -2,8 +2,6 @@ package com.learn.checkCode.service;
 
 import com.learn.api.domain.dto.checkCode.GetCheckCodeDto;
 
-import java.util.concurrent.TimeUnit;
-
 public interface CheckCodeService {
 
 

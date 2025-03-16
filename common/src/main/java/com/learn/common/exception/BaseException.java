@@ -1,6 +1,5 @@
 package com.learn.common.exception;
 
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

@@ -22,11 +22,15 @@ spring:
       #        strip-prefix:
       #          enabled: true
       routes: # 网关路由配置
+        - id: checkCode
+          uri: lb://checkCode
+          predicates:
+            - Path=/checkCode/**
         - id: user # 路由id，自定义，只要唯一即可
           # uri: http://127.0.0.1:8081 # 路由的目标地址 http就是固定地址
           uri: lb://user # 路由的目标地址 lb就是负载均衡，后面跟服务名称
           predicates: # 路由断言，也就是判断请求是否符合路由规则的条件
-            - Path=/user/**,/sso/** # 这个是按照路径匹配，只要以/content/开头就符合要求
+            - Path=/user/** # 这个是按照路径匹配，只要以/content/开头就符合要求
         #          filters:
         #            - StripPrefix=1
         - id: production
@@ -55,44 +59,22 @@ spring:
     database: 0
     host: 192.168.101.128
     port: 6379
+    password: glj
     lettuce: #使用jedis需要换为jedis并添加相关依赖
       pool:
         max-active: 8 #最大连接
         max-idle: 8 #最大空闲连接
         min-idle: 2 #最小空闲连接
         max-wait: 1000ms #连接等待时间
-    password: glj
+
 
   profiles:
     active: dev
 
 # sa-token配置
 sa-token:
-  timeout: 2592000  # Token 有效期，单位秒（30天）
-  is-read-head: true  # 是否从请求头读取 Token
-  is-read-cookie: true  # 是否从 Cookie 读取 Token
-  is-read-body: false  # 是否从请求体读取 Token
-  is-read-param: false  # 是否从请求参数读取 Token
-  is-concurrent: true  # 是否允许并发登录
-  is-share: true  # 是否允许 Token 共享
-  is-read-cookie-after-redirect: false  # 是否在重定向后从 Cookie 读取 Token
-
   # SSO-相关配置
   sso-client:
     # SSO-Server 端主机地址
-    server-url: http://localhost:8081
-
-  # 配置Sa-Token单独使用的Redis连接 （此处需要和SSO-Server端连接同一个Redis）
-  alone-redis:
-    # Redis数据库索引 (默认为0)
-    database: 0
-    # Redis服务器地址
-    host: 192.168.101.128
-    # Redis服务器连接端口
-    port: 6379
-    # Redis服务器连接密码（默认为空）
-    password: glj
-    # 连接超时时间
-    timeout: 10s
+    server-url: http://localhost:8082
   is-log: true
-  token-name: Authorization

@@ -1,0 +1,4 @@
+GET {{gateway_host}}/sso/isLogin
+
+###
+GET {{gateway_host}}/sso/getSsoAuthUrl

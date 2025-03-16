@@ -18,7 +18,7 @@ spring:
         file-extension: yaml
         refresh-enabled: true
         shared-configs:
-          - data-id: logging-${spring.profiles.active}.yaml
+          - dataId: sa-token-alone-redis.yaml # 共享mybatis配置
             group: learn
             refresh: true
   datasource:
@@ -45,3 +45,11 @@ spring:
 feign:
   okhttp:
     enabled: true # 开启OKHttp功能
+
+# sa-token配置
+sa-token:
+  # SSO-相关配置
+  sso-client:
+    # SSO-Server 端主机地址
+    server-url: http://localhost:8082
+  is-log: true
