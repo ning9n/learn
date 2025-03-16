@@ -1,5 +1,8 @@
 package com.learn.common.response;
 
+import lombok.Data;
+
+@Data
 public class Response <T>{
     //0:成功  1：失败
     private Integer code;

@@ -1,0 +1,18 @@
+POST {{check_host}}/checkCode/getCheckCode
+Content-Type: application/json
+
+{
+  "key": "user:register:19283783814",
+  "time": 5,
+  "timeUnit": "MINUTES",
+  "retryCount": 2
+}
+
+###
+
+POST {{check_host}}/checkCode/check
+Content-Type: application/x-www-form-urlencoded
+
+key = user:register:19283783814 &
+code =316581
+

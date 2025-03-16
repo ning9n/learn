@@ -1,0 +1,90 @@
+#微服务配置
+server:
+  port: 8081
+  servlet:
+    context-path: /user
+spring:
+  application:
+    name: user
+  cloud:
+    nacos:
+      server-addr: 192.168.101.128:8848
+      discovery:
+        namespace: dev
+        group: learn
+      config:
+        namespace: dev
+        group: learn
+        file-extension: yaml
+        refresh-enabled: true
+        shared-configs:
+          - data-id: logging-${spring.profiles.active}.yaml
+            group: learn
+            refresh: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.101.128:3306/user?serverTimezone=UTC&userUnicode=true&useSSL=false
+    username: root
+    password: glj
+
+  redis:
+    database: 0
+    host: 192.168.101.128
+    port: 6379
+    password: glj
+    lettuce: #使用jedis需要换为jedis并添加相关依赖
+      pool:
+        max-active: 8 #最大连接
+        max-idle: 8 #最大空闲连接
+        min-idle: 2 #最小空闲连接
+        max-wait: 1000ms #连接等待时间
+
+  profiles:
+    active: dev
+rsa:
+  publicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDvsJrdNacJvZRzHauwPIJBIoJNFyjH47/uCIwBYVgkok3j+3bZZ3HhSW5Fsb23O0KN3wjqcJn3LJMFHN1UoMoiZDSQ7PYrz275bfCFNm2fjwQ8WMUgiRa4KLlTqQK/Gq/2+oDbmE4tb7dxZBrUowAhW9NNv+vESlE8nvP7XXFYpQIDAQAB
+  privateKey: MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAO+wmt01pwm9lHMdq7A8gkEigk0XKMfjv+4IjAFhWCSiTeP7dtlnceFJbkWxvbc7Qo3fCOpwmfcskwUc3VSgyiJkNJDs9ivPbvlt8IU2bZ+PBDxYxSCJFrgouVOpAr8ar/b6gNuYTi1vt3FkGtSjACFb002/68RKUTye8/tdcVilAgMBAAECgYA1COmrSqTUJeuD8Su9ChZ0HROhxR8T45PjMmbwIz7ilDsR1+E7R4VOKPZKW4Kz2VvnklMhtJqMs4MwXWunvxAaUFzQTTg2Fu/WU8Y9ha14OaWZABfChMZlpkmpJW9arKmI22ZuxCEsFGxghTiJQ3tK8npj5IZq5vk+6mFHQ6aJAQJBAPghz91Dpuj+0bOUfOUmzi22obWCBncAD/0CqCLnJlpfOoa9bOcXSusGuSPuKy5KiGyblHMgKI6bq7gcM2DWrGUCQQD3SkOcmia2s/6i7DUEzMKaB0bkkX4Ela/xrfV+A3GzTPv9bIBamu0VIHznuiZbeNeyw7sVo4/GTItq/zn2QJdBAkEA8xHsVoyXTVeShaDIWJKTFyT5dJ1TR++/udKIcuiNIap34tZdgGPI+EM1yoTduBM7YWlnGwA9urW0mj7F9e9WIQJAFjxqSfmeg40512KP/ed/lCQVXtYqU7U2BfBTg8pBfhLtEcOg4wTNTroGITwe2NjL5HovJ2n2sqkNXEio6Ji0QQJAFLW1Kt80qypMqot+mHhS+0KfdOpaKeMWMSR4Ij5VfE63WzETEeWAMQESxzhavN1WOTb3/p6icgcVbgPQBaWhGg==
+# Leaf 配置
+leaf:
+  name: com.sankuai.leaf.opensource.test
+  # Segment 模式配置
+  segment:
+    enable: false
+    url: jdbc:mysql://192.168.101.128:3306/leaf?serverTimezone=UTC&useUnicode=true&useSSL=false
+    username: root
+    password: glj
+
+  # Snowflake 模式配置
+  snowflake:
+    enable: false
+    address: 192.168.101.128
+    port: 2181
+
+# Sa-Token 配置
+sa-token:
+  token-name: Authorization
+  # ------- SSO-模式一相关配置  (非模式一不需要配置)
+  # cookie:
+  # 配置 Cookie 作用域
+  # domain: stp.com
+
+  # ------- SSO-模式二相关配置
+  sso-server:
+    # Ticket有效期 (单位: 秒)，默认五分钟
+    ticket-timeout: 300
+    # 所有允许的授权回调地址
+    allow-url: "*"
+
+    # ------- SSO-模式三相关配置 （下面的配置在使用SSO模式三时打开）
+    # 是否打开模式三
+    is-http: true
+  sign:
+    # API 接口调用秘钥
+    secret-key: kQwIOrYvnXmSDkwEiFngrKidMcdrgKor
+    # ---- 除了以上配置项，你还需要为 Sa-Token 配置http请求处理器（文档有步骤说明）
+  cookie:
+      # 配置 Cookie 作用域
+    domain: stp.com
+forest:
+  # 关闭 forest 请求日志打印
+  log-enabled: false

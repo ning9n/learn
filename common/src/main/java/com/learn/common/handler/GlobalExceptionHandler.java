@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response<String> exception(Exception e){
-        log.error("发生来未知异常："+e.getMessage());
+        log.error("发生了未知异常："+e.getMessage());
         return Response.fail(e.getMessage());
     }
 
@@ -33,8 +33,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BaseException.class)
     public Response<String> baseException(BaseException e){
-        log.warn("发生了异常"+e.getMessage());
-        return Response.fail(e.getMessage());
+        log.warn("发生了异常"+e.getMsg());
+        return Response.fail(e.getMsg());
     }
     /**
      * 参数异常

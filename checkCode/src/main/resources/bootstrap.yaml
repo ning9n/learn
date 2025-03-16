@@ -1,0 +1,59 @@
+#微服务配置
+server:
+  port: 8081
+  servlet:
+    context-path: /checkCode
+spring:
+  application:
+    name: checkCode
+  cloud:
+    nacos:
+      server-addr: 192.168.101.128:8848
+      discovery:
+        namespace: dev
+        group: learn
+
+
+  redis:
+    database: 0
+    host: 192.168.101.128
+    port: 6379
+    password: glj
+    lettuce: #使用jedis需要换为jedis并添加相关依赖
+      pool:
+        max-active: 8 #最大连接
+        max-idle: 8 #最大空闲连接
+        min-idle: 2 #最小空闲连接
+        max-wait: 1000ms #连接等待时间
+  profiles:
+    active: dev
+
+# Sa-Token 配置
+sa-token:
+  token-name: Authorization
+  # ------- SSO-模式一相关配置  (非模式一不需要配置)
+  # cookie:
+  # 配置 Cookie 作用域
+  # domain: stp.com
+
+  # ------- SSO-模式二相关配置
+  sso-server:
+    # Ticket有效期 (单位: 秒)，默认五分钟
+    ticket-timeout: 300
+    # 所有允许的授权回调地址
+    allow-url: "*"
+
+    # ------- SSO-模式三相关配置 （下面的配置在使用SSO模式三时打开）
+    # 是否打开模式三
+    is-http: true
+  sign:
+    # API 接口调用秘钥
+    secret-key: kQwIOrYvnXmSDkwEiFngrKidMcdrgKor
+    # ---- 除了以上配置项，你还需要为 Sa-Token 配置http请求处理器（文档有步骤说明）
+  cookie:
+    # 配置 Cookie 作用域
+    domain: stp.com
+
+forest:
+  # 关闭 forest 请求日志打印
+  log-enabled: false
