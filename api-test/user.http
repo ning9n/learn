@@ -11,10 +11,12 @@ Content-Type: application/json
 }
 ### 当前是否登录
 GET http://localhost:8083/user/sso/isLogin
+### 登录
+GET http://localhost:8083/user/sso/login?back=http://localhost:8083/user/sso/isLogin
 ### 返回SSO认证中心登录地址
-GET http://localhost:8083/user/sso/getSsoAuthUrl?clientLoginUrl=http://localhost:8083/user/register
+GET http://localhost:8083/user/sso/getSsoAuthUrl?clientLoginUrl=http://localhost:8082/sso/auth
 ### 根据ticket进行登录
 POST http://localhost:8083/user/sso/doLoginByTicket
 Content-Type: application/x-www-form-urlencoded
 
-ticket=VjNnnemWu6sunbPPwB7we0eZRAauJgZij1xNYx4f3NsKKlmkpc5NLBjRpRwK8ay7
+ticket=TwK8P7g7KHrTvQIuHNfVIqAXhjbixoxRXEs8LLzMIKwTO3CEPVuGryYtBOUGDAx4

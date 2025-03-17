@@ -1,7 +1,7 @@
 ### 单点登录授权地址
 
-POST {{auth_host}}/sso/auth?redirect=http://localhost:8083/user/isLogin&mode=tocket
-
+POST {{auth_host}}/sso/auth?redirect=http://localhost:8083/user/sso/isLogin
+satoken:52d6676e-59b9-44a8-a58c-a3396fd865b9
 
 ### 登录接口
 GET {{auth_host}}/sso/doLogin?name=心动&pwd=123&phone=19283783814

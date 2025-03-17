@@ -23,7 +23,7 @@ public class H5Controller {
 	@RequestMapping("/sso/getRedirectUrl")
 	public SaResult getRedirectUrl(String redirect, String mode, String client) {
 		// 未登录情况下，返回 code=401 
-		if(StpUtil.isLogin() == false) {
+		if(!StpUtil.isLogin()) {
 			return SaResult.code(401);
 		}
 		// 已登录情况下，构建 redirectUrl

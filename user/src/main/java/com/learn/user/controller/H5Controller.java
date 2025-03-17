@@ -36,5 +36,15 @@ public class H5Controller {
         StpUtil.login(ctr.loginId, ctr.remainSessionTimeout);
         return Response.ok(StpUtil.getTokenValue());
     }
+    /*
+     * SSO-Client端：处理所有SSO相关请求
+     *         http://{host}:{port}/sso/login          -- Client端登录地址，接受参数：back=登录后的跳转地址
+     *         http://{host}:{port}/sso/logout         -- Client端单点注销地址（isSlo=true时打开），接受参数：back=注销后的跳转地址
+     *         http://{host}:{port}/sso/logoutCall     -- Client端单点注销回调地址（isSlo=true时打开），此接口为框架回调，开发者无需关心
+     */
+    @RequestMapping("/sso/*")
+    public Object ssoRequest() {
+        return SaSsoClientProcessor.instance.dister();
+    }
     
 }
