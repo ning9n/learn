@@ -1,0 +1,65 @@
+server:
+  port: 8084
+  servlet:
+    context-path: /production
+
+
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  application:
+    name: production
+  cloud:
+    nacos:
+      server-addr: 192.168.101.128:8848
+      discovery:
+        namespace: dev
+        group: learn
+      config:
+        namespace: dev
+        group: learn
+        file-extension: yaml
+        refresh-enabled: true
+        shared-configs:
+          - dataId: sa-token-alone-redis.yaml # 共享mybatis配置
+            group: learn
+            refresh: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.101.128:3306/production?serverTimezone=UTC&userUnicode=true&useSSL=false
+    username: root
+    password: glj
+  # spring data redis会出现读取失败的情况
+  redis:
+    database: 0
+    host: 192.168.101.128
+    port: 6379
+    password: glj
+    lettuce: #使用jedis需要换为jedis并添加相关依赖
+      pool:
+        max-active: 8 #最大连接
+        max-idle: 8 #最大空闲连接
+        min-idle: 2 #最小空闲连接
+        max-wait: 1000ms #连接等待时间
+
+  profiles:
+    active: dev
+# feign连接池
+feign:
+  okhttp:
+    enabled: true # 开启OKHttp功能
+
+
+minio:
+  bucket: test
+
+# sa-token配置
+sa-token:
+  # SSO-相关配置
+  sso-client:
+    # SSO-Server 端主机地址
+    server-url: http://localhost:8082
+  is-log: true

@@ -1,0 +1,35 @@
+### 上传文件
+
+POST {{production_host}}/production/uploadTotalVideo
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="test.mp4"
+Content-Type: video/mp4
+
+< C:\Users\张利宁\Videos\屏幕录制\test.mp4
+--WebAppBoundary--
+
+### 分片上传文件
+
+POST {{production_host}}/production/uploadPartVideo
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="id"
+
+434871752321925125
+--WebAppBoundary
+Content-Disposition: form-data; name="part"
+
+2
+--WebAppBoundary
+Content-Disposition: form-data; name="total"
+
+2
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="test.mp4"
+Content-Type: video/mp4
+
+< C:\Users\张利宁\Videos\屏幕录制\chunk\2
+--WebAppBoundary--
