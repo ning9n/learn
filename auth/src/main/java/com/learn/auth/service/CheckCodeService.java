@@ -1,6 +1,6 @@
-package com.learn.checkCode.service;
+package com.learn.auth.service;
 
-import com.learn.api.domain.dto.checkCode.GetCheckCodeDto;
+import com.learn.auth.domain.dto.GetCheckCodeDto;
 
 public interface CheckCodeService {
 

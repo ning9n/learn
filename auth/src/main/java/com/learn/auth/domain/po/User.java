@@ -1,4 +1,4 @@
-package com.learn.api.domain.po.user;
+package com.learn.auth.domain.po;
 
 import lombok.Data;
 
@@ -12,19 +12,30 @@ public class User {
     private Long id;
 
     /**
-     * 用户名
+     * 密码
      */
-    private String username;
+    private String password;
+
     /**
-     * 头像
+     * 盐
      */
-    private String cover;
+    private String salt;
+
+    /**
+     * 身份证号
+     */
+    private String idNumber;
 
 
     /**
-     * 简介
+     * 手机号
      */
-    private String intro;
+    private String phone;
+
+    /**
+     * 邮箱
+     */
+    private String email;
 
     /**
      * 创建时间

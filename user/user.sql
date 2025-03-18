@@ -4,19 +4,13 @@ CREATE TABLE `user`
 (
     `id`          bigint      NOT NULL COMMENT 'id',
     `username`    varchar(20) NOT NULL COMMENT '用户名',
-    `password`    varchar(100) NOT NULL COMMENT '密码',
-    `salt`        varchar(100) NOT NULL COMMENT '盐',
     `cover`       varchar(100) DEFAULT NULL COMMENT '头像',
-    `id_number`   varchar(18)  DEFAULT NULL COMMENT '身份证号',
     `intro`       varchar(100) DEFAULT NULL COMMENT '简介',
-    `phone`       varchar(20)  NOT NULL COMMENT '手机号',
-    `email`       varchar(50)  DEFAULT NULL COMMENT '邮箱',
     `create_time` datetime    NOT NULL COMMENT '创建时间',
     `update_time` datetime    NOT NULL COMMENT '更新时间',
-
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_username` (`username`)
-) ;
+) COMMENT '保存用户在这个程序独有的信息，id与用户中心id相同';
 
 ## 关注表
 CREATE TABLE `follow`

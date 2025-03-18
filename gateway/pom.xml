@@ -88,12 +88,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
-        <dependency>
-            <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-sso</artifactId>
-            <version>1.40.0</version>
-            <scope>compile</scope>
-        </dependency>
+
+
         <!-- Sa-Token插件：权限缓存与业务缓存分离 -->
         <dependency>
             <groupId>cn.dev33</groupId>

@@ -13,6 +13,7 @@ import com.learn.production.utils.ProductionConstants;
 import com.learn.production.utils.RedisIdWorker;
 import io.minio.errors.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +23,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class VideoServiceImpl implements VideoService {
     private final RedisIdWorker idWorker;
@@ -37,9 +39,7 @@ public class VideoServiceImpl implements VideoService {
         //上传到minio
         minioServer.uploadVideoFile(url,file.getInputStream(), file.getContentType());
         //保存到数据库
-        //TODO 完善登录
-        // Long userId = (Long) StpUtil.getLoginId();
-        Long userId=1L;
+        Long userId = Long.parseLong((String) StpUtil.getLoginId());
         Production production=new Production();
         production.setId(id);
         production.setUrl(url);
@@ -59,9 +59,7 @@ public class VideoServiceImpl implements VideoService {
         LocalDateTime now=idWorker.getCreateTime(id);
         //路径为年/月/日/id/chunk/part
         String url=now.getYear()+"/"+now.getMonth()+"/"+now.getDayOfMonth()+"/"+id+"/chunk/"+dto.getPart();
-        //TODO 完善登录
-        // Long userId = (Long) StpUtil.getLoginId();
-        Long userId=1L;
+        Long userId = Long.parseLong((String) StpUtil.getLoginId());
         //上传到minio
         minioServer.uploadVideoFile(url,dto.getFile().getInputStream(),dto.getFile().getContentType());
 

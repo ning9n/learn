@@ -1,4 +1,4 @@
-package com.learn.checkCode.config;
+package com.learn.auth.config;
 
 
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;

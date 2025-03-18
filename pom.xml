@@ -12,7 +12,6 @@
         <module>user</module>
         <module>common</module>
         <module>api</module>
-        <module>checkCode</module>
         <module>auth</module>
         <module>gateway</module>
         <module>production</module>

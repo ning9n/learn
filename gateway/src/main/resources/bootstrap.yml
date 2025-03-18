@@ -22,10 +22,6 @@ spring:
       #        strip-prefix:
       #          enabled: true
       routes: # 网关路由配置
-        - id: checkCode
-          uri: lb://checkCode
-          predicates:
-            - Path=/checkCode/**
         - id: user # 路由id，自定义，只要唯一即可
           # uri: http://127.0.0.1:8081 # 路由的目标地址 http就是固定地址
           uri: lb://user # 路由的目标地址 lb就是负载均衡，后面跟服务名称
@@ -70,11 +66,7 @@ spring:
 
   profiles:
     active: dev
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
 
-# sa-token配置
-sa-token:
-  # SSO-相关配置
-  sso-client:
-    # SSO-Server 端主机地址
-    server-url: http://localhost:8082
-  is-log: true

@@ -4,7 +4,7 @@ import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.sso.config.SaSsoServerConfig;
 import cn.dev33.satoken.sso.processor.SaSsoServerProcessor;
 import cn.dev33.satoken.stp.SaTokenInfo;
-import com.learn.api.domain.dto.auth.UserLoginDto;
+import com.learn.auth.domain.dto.UserLoginDto;
 import com.learn.auth.service.LoginService;
 import com.learn.common.response.Response;
 import lombok.RequiredArgsConstructor;

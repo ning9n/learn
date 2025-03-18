@@ -55,11 +55,3 @@ feign:
 
 minio:
   bucket: test
-
-# sa-token配置
-sa-token:
-  # SSO-相关配置
-  sso-client:
-    # SSO-Server 端主机地址
-    server-url: http://localhost:8082
-  is-log: true

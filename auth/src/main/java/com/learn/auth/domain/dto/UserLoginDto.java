@@ -1,4 +1,4 @@
-package com.learn.api.domain.dto.auth;
+package com.learn.auth.domain.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

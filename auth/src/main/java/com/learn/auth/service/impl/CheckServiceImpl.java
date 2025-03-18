@@ -1,8 +1,8 @@
-package com.learn.checkCode.service.impl;
+package com.learn.auth.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
-import com.learn.api.domain.dto.checkCode.GetCheckCodeDto;
-import com.learn.checkCode.service.CheckCodeService;
+import com.learn.auth.domain.dto.GetCheckCodeDto;
+import com.learn.auth.service.CheckCodeService;
 import com.learn.common.exception.InvalidCheckCodeException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

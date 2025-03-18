@@ -1,7 +1,8 @@
-package com.learn.checkCode.controller;
+package com.learn.auth.controller;
 
-import com.learn.api.domain.dto.checkCode.GetCheckCodeDto;
-import com.learn.checkCode.service.CheckCodeService;
+
+import com.learn.auth.domain.dto.GetCheckCodeDto;
+import com.learn.auth.service.CheckCodeService;
 import com.learn.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,4 +1,4 @@
-package com.learn.api.domain.dto.checkCode;
+package com.learn.auth.domain.dto;
 
 import lombok.Data;
 

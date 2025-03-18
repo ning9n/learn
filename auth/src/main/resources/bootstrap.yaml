@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8888
 
 spring:
   application:
@@ -16,14 +16,25 @@ spring:
         file-extension: yaml
         refresh-enabled: true
         shared-configs: # 共享配置
-          - dataId: sa-token-alone-redis.yaml # 共享mybatis配置
+          - dataId: sa-token-alone-redis.yaml # 共享redis配置
             group: learn
             refresh: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.101.128:3306/user?serverTimezone=UTC&userUnicode=true&useSSL=false
+    url: jdbc:mysql://192.168.101.128:3306/auth?serverTimezone=UTC&userUnicode=true&useSSL=false
     username: root
     password: glj
+  redis:
+    database: 0
+    host: 192.168.101.128
+    port: 6379
+    password: glj
+    lettuce: #使用jedis需要换为jedis并添加相关依赖
+      pool:
+        max-active: 8 #最大连接
+        max-idle: 8 #最大空闲连接
+        min-idle: 2 #最小空闲连接
+        max-wait: 1000ms #连接等待时间
   profiles:
     active: dev
 # feign连接池
@@ -34,7 +45,7 @@ feign:
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
 sa-token:
   # token 名称（同时也是 cookie 名称）
-  token-name: satoken
+  token-name: sa-token
   # token 有效期（单位：秒） 默认30天，-1 代表永久有效
   timeout: 2592000
   # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结

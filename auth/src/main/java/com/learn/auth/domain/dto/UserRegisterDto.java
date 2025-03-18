@@ -1,12 +1,10 @@
-package com.learn.api.domain.dto.user;
+package com.learn.auth.domain.dto;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 @Data
 public class UserRegisterDto {
-    @NotEmpty
-    private String username; // 用户名
     @NotEmpty
     private String password; // 用户密码
     @NotEmpty

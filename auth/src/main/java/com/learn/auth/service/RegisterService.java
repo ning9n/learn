@@ -1,6 +1,7 @@
-package com.learn.user.service;
+package com.learn.auth.service;
 
-import com.learn.api.domain.dto.user.UserRegisterDto;
+
+import com.learn.auth.domain.dto.UserRegisterDto;
 
 public interface RegisterService {
     /**
@@ -12,5 +13,5 @@ public interface RegisterService {
 
     Boolean checkPhone(String phone);
 
-    Boolean checkUsername(String username);
+
 }

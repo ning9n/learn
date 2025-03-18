@@ -1,7 +1,7 @@
 package com.learn.auth.service;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
-import com.learn.api.domain.dto.auth.UserLoginDto;
+import com.learn.auth.domain.dto.UserLoginDto;
 
 public interface LoginService {
     /**

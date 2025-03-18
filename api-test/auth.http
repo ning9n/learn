@@ -6,4 +6,28 @@ satoken:52d6676e-59b9-44a8-a58c-a3396fd865b9
 ### 登录接口
 GET {{auth_host}}/sso/doLogin?name=心动&pwd=123&phone=19283783814
 ###
-GET {{auth_host}}//sso/getRedirectUrl?redirect=http://localhost:8083/user/isLogin&mode=ticket
+GET {{auth_host}}/sso/getRedirectUrl?redirect=http://localhost:8083/user/isLogin&mode=ticket
+
+###注册
+POST {{auth_host}}/register
+Content-Type: application/json
+
+{
+  "username":"心动",
+  "password":"123",
+  "email": "",
+  "phone":"19283783814",
+  "code":"202512"
+}
+### 获取验证码
+POST {{auth_host}}/getCheckCode
+# key
+# auth:register:code:手机号   auth:login:code:手机号
+Content-Type: application/json
+
+{
+  "key": "auth:register:code:19283783814",
+  "time": 5,
+  "timeUnit": "MINUTES",
+  "retryCount": 2
+}

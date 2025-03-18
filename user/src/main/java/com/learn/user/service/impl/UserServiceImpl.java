@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     public ProfileVo getProfile() {
         Long id = (Long) StpUtil.getLoginId();
         LambdaQueryWrapper<User> wrapper=new LambdaQueryWrapper<>();
-        wrapper.select(User::getIdNumber,User::getPhone,User::getEmail,User::getCreateTime,User::getUpdateTime)
+        wrapper.select(User::getCreateTime,User::getUpdateTime)
                 .eq(User::getId,id);
         User user = userMapper.selectOne(wrapper);
         return BeanUtil.copyProperties(user, ProfileVo.class);
