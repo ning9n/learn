@@ -55,3 +55,6 @@ feign:
 
 minio:
   bucket: test
+ffmpeg:
+  path: D:\java_tools\ffmpeg\ffmpeg.exe
+  temporary-path: C:\Users\张利宁\Videos\屏幕录制\temporary\

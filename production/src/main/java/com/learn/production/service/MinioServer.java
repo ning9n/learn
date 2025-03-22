@@ -15,4 +15,20 @@ public interface MinioServer {
     public void uploadVideoFile(String url, InputStream inputStream, String contentType) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 
     void compose(String url, @NotNull Integer total) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
+
+    /**
+     * 下载文件到本地
+     * @param filename 文件名
+     * @param  temporaryPath 本地路径
+     */
+    void downloadVideoFileToLocal(String filename, String temporaryPath) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
+
+    /**
+     * 获取文件流
+     * @param url 文件存放路径
+     * @return 文件
+     */
+    InputStream downloadVideoFile(String url) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
+
+    void uploadLocalFile(String localThumbnailPath, String thumbnailPath);
 }

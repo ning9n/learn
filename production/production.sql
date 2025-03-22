@@ -8,7 +8,7 @@ CREATE TABLE `production`
     `name`        varchar(200) DEFAULT NULL COMMENT '视频名称',
     `intro`       varchar(200) DEFAULT NULL COMMENT '视频介绍',
     `user_id`     bigint          DEFAULT NULL COMMENT '作者id',
-    `status`      int DEFAULT 0 COMMENT '作品状态，0：上传中，1：合并中，2：解析中，3：审核中，4：发布成功，5.已下架',
+    `status`      int DEFAULT 0 COMMENT '作品状态，0：上传中，1：合并中，2.解析中，3.待发布，4：审核中，5：发布成功，6.已下架',
     `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB

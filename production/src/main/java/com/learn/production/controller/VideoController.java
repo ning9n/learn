@@ -22,7 +22,7 @@ public class VideoController {
      * @return 视频id
      */
     @PostMapping("/uploadTotalVideo")
-    public Response<Long> uploadTotalVideo(@RequestPart("file") MultipartFile file) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public Response<Long> uploadTotalVideo(@RequestPart("file") MultipartFile file) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException, InterruptedException {
         Long id=videoService.uploadTotalVideo(file);
         return Response.ok(id);
     }
@@ -32,11 +32,16 @@ public class VideoController {
      * @return 视频id
      */
     @PostMapping("/uploadPartVideo")
-    public Response<Long> uploadPartVideo(UploadPartVideoDto dto) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public Response<Long> uploadPartVideo(UploadPartVideoDto dto) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException, InterruptedException {
         if(dto.getId()==null&&dto.getPart()!=0){
             throw new ArgumentException("非第一片必须携带id");
         }
         Long id=videoService.uploadPartVideo(dto);
         return Response.ok(id);
+    }
+    @PostMapping("/uploadCover")
+    public Response<Boolean> uploadCover(@RequestParam Long productionId,@RequestPart("file") MultipartFile file){
+        videoService.uploadCover(productionId,file);
+        return Response.ok(true);
     }
 }
