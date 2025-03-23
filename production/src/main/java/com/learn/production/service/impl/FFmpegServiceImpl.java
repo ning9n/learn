@@ -91,6 +91,7 @@ public class FFmpegServiceImpl implements FFmpegService {
         if (!new java.io.File(thumbnailPath).exists()) {
             throw new IOException("封面文件未生成: " + thumbnailPath);
         }
+        log.info("成功获取视频封面");
 
     }
 

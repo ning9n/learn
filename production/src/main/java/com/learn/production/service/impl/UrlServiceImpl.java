@@ -40,11 +40,11 @@ public class UrlServiceImpl implements UrlService {
 
     @Override
     public String getLocalThumbnailUrlById(Long id) {
-        return temporaryPathPrefix + id+"\\thumbnail";
+        return temporaryPathPrefix + id+"\\thumbnail.png";
     }
     @Override
     public String getLocalUrlById(Long id) {
-        return temporaryPathPrefix + id + "\\video";
+        return temporaryPathPrefix + id + "\\video.mp4";
     }
 
     @Override
