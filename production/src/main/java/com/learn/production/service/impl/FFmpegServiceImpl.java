@@ -1,6 +1,7 @@
 package com.learn.production.service.impl;
 
 import com.learn.production.service.FFmpegService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@Slf4j
 public class FFmpegServiceImpl implements FFmpegService {
     @Value("${ffmpeg.path}")
     private String ffmpegPath;
@@ -42,8 +44,9 @@ public class FFmpegServiceImpl implements FFmpegService {
                 return matcher.group(1);
             }
         }
+        log.info("获取视频时长失败");
         process.waitFor();
-        return null;
+        throw new IOException("获取视频时长失败");
     }
 
     /**
@@ -70,12 +73,25 @@ public class FFmpegServiceImpl implements FFmpegService {
         );
         builder.redirectErrorStream(true);
         Process process = builder.start();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String line;
+        StringBuilder output = new StringBuilder();
+        while ((line = reader.readLine()) != null) {
+            output.append(line).append("\n");
+        }
         try {
-            process.waitFor();
+            int exitCode = process.waitFor();
+            if (exitCode != 0) {
+                throw new IOException("FFmpeg进程退出状态码非零: " + exitCode + "\n输出日志: " + output.toString());
+            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new IOException("FFmpeg进程被中断", e);
         }
+        if (!new java.io.File(thumbnailPath).exists()) {
+            throw new IOException("封面文件未生成: " + thumbnailPath);
+        }
+
     }
 
 

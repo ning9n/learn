@@ -1,6 +1,7 @@
 package com.learn.production.service.impl;
 
 import com.learn.production.service.MinioServer;
+import com.learn.production.service.UrlService;
 import io.minio.*;
 import io.minio.errors.*;
 import lombok.RequiredArgsConstructor;
@@ -28,44 +29,69 @@ import java.util.stream.Stream;
 @Slf4j
 public class MinioServerImpl implements MinioServer {
     private final MinioClient minioClient;
+    private final UrlService urlService;
     @Value("${minio.bucket}")
     private String bucket;
 
     /**
      * 上传文件
-     * @param filename 文件名
+     *
+     * @param filename    文件名
      * @param inputStream 文件
      * @param contentType 文件类型
      */
     @Override
-    public void uploadVideoFile(String filename, InputStream inputStream, String contentType) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        PutObjectArgs args= PutObjectArgs.builder()
+    public void uploadFile(String filename, InputStream inputStream, String contentType) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        PutObjectArgs args = PutObjectArgs.builder()
                 .bucket(bucket)
-                .stream(inputStream,-1,10*1024*1024)
+                .stream(inputStream, -1, 10 * 1024 * 1024)
                 .object(filename)
                 .contentType(contentType)
                 .build();
         minioClient.putObject(args);
-        log.info("视频上传成功");
+        log.info("文件上传成功");
+    }
+    /**
+     * 把本地文件保存到minio
+     * @param filename minio存放路径
+     * @param localFireName 本地存放路径
+     * @param contentType 文件类型
+     */
+    @Override
+    public void uploadLocalFile(String filename, String localFireName, String contentType) throws IOException{
+        UploadObjectArgs args = UploadObjectArgs.builder()
+                .bucket(bucket)
+                .object(filename)
+                .filename(localFireName)
+                .contentType(contentType)
+                .build();
+        try {
+            minioClient.uploadObject(args);
+        }catch (Exception e){
+            throw new IOException("本地文件上传失败");
+        }
+
+        log.info("本地文件上传成功");
     }
 
     /**
      * 合并文件
-     * @param url 合并后的文件存放路径
+     *
+     * @param id 视频id
      * @param total 总片数
      */
     @Override
-    public void compose(String url, @NotNull Integer total) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        List<ComposeSource> list= Stream.iterate(0, i -> ++i)
+    public void compose(Long id, @NotNull Integer total) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        List<ComposeSource> list = Stream.iterate(0, i -> ++i)
                 .limit(total)
                 .map(i -> ComposeSource.builder()
                         .bucket(bucket)
-                        .object((url+"/chunk/").concat(Integer.toString(i)))
+                        .object(urlService.getMinioUrlById(id,i))
                         .build())
                 .collect(Collectors.toList());
-        ComposeObjectArgs args= ComposeObjectArgs.builder()
+        ComposeObjectArgs args = ComposeObjectArgs.builder()
                 .bucket(bucket)
-                .object(url)
+                .object(urlService.getMinioUrlById(id))
                 .sources(list)
                 .build();
         minioClient.composeObject(args);
@@ -74,44 +100,35 @@ public class MinioServerImpl implements MinioServer {
 
     /**
      * 下载文件到本地
-     * @param filename 文件名
-     * @param temporaryPath 本地路径
+     *
+     * @param filename      文件名
+     * @param localFileName 本地路径
      */
     @Override
     @Async("downloadThreadPool")
-    public void downloadVideoFileToLocal(String filename, String temporaryPath) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        try (InputStream inputStream = downloadVideoFile(filename)) {
-            try (FileOutputStream outputStream = new FileOutputStream(temporaryPath)) {
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, length);
-                }
-            }
-        }
+    public void downloadVideoFileToLocal(String filename, String localFileName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        DownloadObjectArgs args= DownloadObjectArgs.builder()
+                .bucket(bucket)
+                .object(filename)
+                .filename(localFileName)
+                .build();
+        minioClient.downloadObject(args);
     }
 
     /**
      * 获取文件流
+     *
      * @param url 文件存放路径
      * @return 文件
      */
     @Override
     public InputStream downloadVideoFile(String url) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        GetObjectArgs args=GetObjectArgs.builder()
+        GetObjectArgs args = GetObjectArgs.builder()
                 .bucket(bucket)
                 .object(url)
                 .build();
         return minioClient.getObject(args);
     }
 
-    /**
-     * 把本地文件保存到minio
-     * @param localThumbnailPath 本地路径
-     * @param thumbnailPath minio路径
-     */
-    @Override
-    public void uploadLocalFile(String localThumbnailPath, String thumbnailPath) {
 
-    }
 }

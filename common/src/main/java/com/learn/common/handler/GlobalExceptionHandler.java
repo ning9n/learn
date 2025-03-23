@@ -32,6 +32,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BaseException.class)
     public Response<String> baseException(BaseException e){
         log.warn("发生了异常"+e.getMsg());
+        e.printStackTrace();
         return Response.fail(e.getMsg());
     }
     /**
@@ -39,6 +40,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({MethodArgumentNotValidException.class, MissingServletRequestParameterException.class})
     public Response<String> methodArgumentNotValidExceptionException(MethodArgumentNotValidException e){
+        e.printStackTrace();
         return Response.fail("数据不合法");
     }
     /**
@@ -48,6 +50,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response<String> exception(Exception e){
         log.error("发生了未知异常："+e.getMessage());
+        e.printStackTrace();
         return Response.fail(e.getMessage());
     }
 

@@ -19,7 +19,7 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 --WebAppBoundary
 Content-Disposition: form-data; name="id"
 
-436708001164820482
+437061562872627209
 --WebAppBoundary
 Content-Disposition: form-data; name="part"
 
@@ -32,5 +32,5 @@ Content-Disposition: form-data; name="total"
 Content-Disposition: form-data; name="file"; filename="test.mp4"
 Content-Type: video/mp4
 
-< C:\Users\张利宁\Videos\屏幕录制\chunk\6
+< D:\java_tools\ffmpeg\video\chunk\6
 --WebAppBoundary--

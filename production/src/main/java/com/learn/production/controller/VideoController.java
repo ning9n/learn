@@ -36,6 +36,9 @@ public class VideoController {
         if(dto.getId()==null&&dto.getPart()!=0){
             throw new ArgumentException("非第一片必须携带id");
         }
+        if(dto.getId()!=null&&dto.getPart()==0){
+            throw new ArgumentException("第一片不能携带id");
+        }
         Long id=videoService.uploadPartVideo(dto);
         return Response.ok(id);
     }

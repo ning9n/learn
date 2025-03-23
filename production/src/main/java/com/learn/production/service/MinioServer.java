@@ -12,9 +12,11 @@ import java.security.NoSuchAlgorithmException;
  * 封装对minio的操作
  */
 public interface MinioServer {
-    public void uploadVideoFile(String url, InputStream inputStream, String contentType) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
+    public void uploadFile(String url, InputStream inputStream, String contentType) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 
-    void compose(String url, @NotNull Integer total) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
+    void uploadLocalFile(String filename, String localFireName, String contentType) throws IOException;
+
+    void compose(Long id, @NotNull Integer total) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 
     /**
      * 下载文件到本地
@@ -30,5 +32,4 @@ public interface MinioServer {
      */
     InputStream downloadVideoFile(String url) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 
-    void uploadLocalFile(String localThumbnailPath, String thumbnailPath);
 }
